@@ -1,0 +1,6 @@
+This is the log file for orarun script
+Timestamp: 120516173750
+Response file being used is :/vagrant/puppet/modules/oracle/files/CVU_11.2.0.1.0_vagrant/fixup.response
+Enable file being used is :/vagrant/puppet/modules/oracle/files/CVU_11.2.0.1.0_vagrant/fixup.enable
+Setting Shell limits ...
+vagrant does not exist on the system

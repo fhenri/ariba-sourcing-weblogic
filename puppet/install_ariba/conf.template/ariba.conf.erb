@@ -1,0 +1,21 @@
+LoadModule weblogic_module modules/mod_wl.so
+
+<IfModule mod_weblogic.c>
+   # Debug                 On
+   WLLogFile               /var/log/httpd/wlproxy.log
+   # DebugConfigInfo       On
+
+  <Location /Sourcing>
+    SetHandler weblogic-handler
+    WebLogicCluster <%= @ARIBA_HOST %>:8000,<%= @ARIBA_HOST %>:8004
+    MatchExpression /Sourcing/*
+  </Location>
+</IfModule>
+
+Alias /AribaASM/ <%= @ARIBA_BASE %>/WebComponents/
+
+<Directory <%= @ARIBA_BASE %>/WebComponents/>
+  Options Indexes All
+  Order allow,deny
+  Allow from all
+</Directory>

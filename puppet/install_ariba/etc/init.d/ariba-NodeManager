@@ -1,0 +1,146 @@
+#!/bin/sh
+#
+# ariba-NodeManager Start/Stop the NodeManager
+#
+# chkconfig: 2345 96 04
+# description: NodeManager for Ariba
+
+### BEGIN INIT INFO
+# Provides: ariba-NodeManager
+# Required-Start: $local_fs $syslog $ariba-Weblogic
+# Required-Stop: $local_fs $syslog $ariba-Weblogic
+# Default-Start: 2345
+# Default-Stop: 90
+# Short-Description: The NodeManager server
+# Description: The NodeManager server
+### END INIT INFO
+
+RETVAL=0
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+. /etc/rc.d/init.d/functions_ariba
+
+prog="ariba-NodeManager"
+pidfile=/var/run/$prog.pid
+lockfile=/var/lock/subsys/$prog
+config=/etc/sysconfig/ariba
+
+[ -e $config ] && . $config
+
+exec="$AES_SERVER_DIR/bin/startnodemanager"
+NM_PGREP=".* weblogic.NodeManager\$"
+
+start() {
+        if [ $UID -ne 0 ] ; then
+                echo "User has insufficient privilege."
+                exit 4
+        fi
+        [ -f $pidfile ] && rm $pidfile                                                                                  # if running, start is not called
+        [ -x $exec ] || exit 5
+        echo -n $"Starting $prog: "
+        daemon_bg --user=ariba --wait check_port:${NM_STARTUP_WAIT:-180} $exec -machine $WL_ADMIN_HOST
+        retval=$?
+
+        pid=$(get_pid)                                                          # daemon_bg only sets wrapper pid
+        [ -n "$pid" ] && echo $pid > $pidfile
+        [ "$retval" -eq 9 -a -n "$pid" ] && false && {
+                # If we kill the process - it might come later (if starting slowly), or may stay inoperational
+                kill -TERM $pid                                                 # WL started, couldnt open port
+                rm $pidfile
+        }                
+        [ $retval -eq 0 ] && touch $lockfile
+}
+
+stop() {
+        if [ $UID -ne 0 ] ; then
+                echo "User has insufficient privilege."
+                exit 4
+        fi
+        echo -n $"Stopping $prog: "
+        pid="$(get_pid)"
+        if [ -n "$pid" ]; then
+                [ -f $pidfile ] || echo "$pid" > $pidfile
+                killproc $prog
+                RETVAL=3
+        else
+                failure $"Stopping $prog"
+        fi   
+        retval=$?
+        echo
+        [ $retval -eq 0 ] && rm -f $lockfile
+}
+
+restart() {
+        proc_status_q && stop
+        start
+}
+
+force_reload() {
+        # new configuration takes effect after restart
+        restart
+}
+
+get_pid() {
+        pgrep -u ariba -f "$NM_PGREP"
+}
+
+check_port() {
+        pid=$(get_pid)
+        [ -n "$pid" ] && {
+                lsof -a -p $pid -P -i :$NM_PORT || {
+                        echo $"Port $NM_PORT not opened by $pid"
+                        return 1
+                }
+        }
+}
+
+port_status() {
+        # run checks to determine if the service is running or use generic status
+        proc_status && check_port
+}
+
+proc_status() {
+        pgrep -u ariba -l -f "$NM_PGREP"
+}
+
+proc_status_q() {
+        proc_status > /dev/null
+}
+
+case "$1" in
+        start)
+                stat_out=$(proc_status) && {
+                        echo -e $"NOT Starting $prog - already running:\\n$stat_out"                         
+                        exit 0
+                }
+                $1
+                ;;
+        stop)
+                proc_status_q || {
+                        echo $"NOT Stopping $prog - not running"                         
+                        exit 0
+                }
+                $1
+                ;;
+        restart)
+                $1
+                ;;
+        reload)
+                exit 1                                                                                                                                  # reload not supported
+                ;;
+        force-reload)
+                force_reload
+                ;;
+        status)
+                port_status
+                ;;
+        condrestart|try-restart)
+                proc_status_q || exit 0
+                restart
+                ;;
+        *)
+                echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload}"
+                exit 2
+esac
+exit $?

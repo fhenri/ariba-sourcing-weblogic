@@ -1,0 +1,17 @@
+XVFBARGS=":0"
+XVFB_STARTUP_WAIT=10
+XVFB_PORT=$(( 6000 + ${XVFBARGS##*:} ))
+
+DOMAIN=Sourcing
+DOMAIN_DIR=/home/ariba/bea/user_projects/$DOMAIN
+
+WL_ADMIN_HOST=$(hostname)
+WL_ADMIN_USER=system
+WL_ADMIN_PORT=7001
+WL_ADMIN_PWD=Weblogic0000
+WL_ADMIN_STARTUP_WAIT=120
+
+NM_PORT=6999
+NM_STARTUP_WAIT=180
+
+AES_SERVER_DIR=/home/ariba/Sourcing/Server

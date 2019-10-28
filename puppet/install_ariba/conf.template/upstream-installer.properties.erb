@@ -1,0 +1,99 @@
+# staticprops
+WebLogicServerChoice=1
+WebSphereServerChoice=0
+TomcatChoice=0
+APPSERVER_TOMCAT=0
+USER_INSTALL_DIR=/home/ariba/Sourcing
+INSTALLER_PROPERTIES_FILE_PATH=<%= @ARIBA_CONF %>/upstream-installer.properties
+Install_Only=false
+domain.directory=/home/ariba/bea/user_projects
+appserver.home=/home/ariba/bea
+bea.home=/home/ariba/bea
+admin.port=7001
+# j2eesetup always creates user, but weblogic exists by default
+# TODO: why isnt user=system defaulted?
+admin.user=system
+admin.host=<%= @ARIBA_HOST %>
+# has to contain at least one digit and mixed case
+admin.password=Weblogic0000
+ASMSharedSecret=tool
+CNCIdentity=
+CNCSharedSecret=tool
+
+# devprops
+oracle.jdbc.driver=<%= @AES_INST_PROPS %>/ojdbc5.jar
+
+# custprops
+domain=Sourcing
+asm.group=
+server1.name=asmserver1
+server1.port=8000
+server1.initialheap=256
+server1.maxheap=512
+#server1.addtl-mem-args=-Xss1m -XX:MaxPermSize=512M -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -noverify -javaagent:/home/ariba/jrebel/jrebel.jar
+server1.addtl-mem-args=-Xss1m -XX:MaxPermSize=512M
+server2.name=asmserver2
+server2.port=8004
+server2.initialheap=256
+server2.maxheap=512
+server2.addtl-mem-args=-Xss1m -XX:MaxPermSize=512M
+sourcing.configure.customize.webserverport=80
+sourcing.configure.customize.webserverhostname=<%= @ARIBA_HOST %>
+sourcing.configure.freshconfig=true
+sourcing.configure.aribadbvalidateconnection=false
+sourcing.server.home=/home/ariba/Sourcing/Server
+sourcing.web.home=/home/ariba/Sourcing/WebComponents
+sourcing.home=/home/ariba/Sourcing
+sourcing.server.home=/home/ariba/Sourcing/Server
+sourcing.web.home=/home/ariba/Sourcing/WebComponents
+sourcing.configure.customize.virtualdir=AribaASM
+
+Application.Base.Data.DefaultLanguage=English
+Application.Base.Data.DefaultCurrency=EUR
+Application.Base.Data.DefaultOrganicUserLocale=en_US
+Application.Reports.CSVReportsCharset=UTF-8
+Application.Base.Data.BaseLanguage=U.S English
+System.Base.DefaultLocale=en_US
+System.Base.InstanceName=ACM
+
+// the following 2 are not set
+System.Base.ASMShared="/home/ariba/Shared"
+System.Base.Doc="/home/ariba/Sourcing/WebComponents"
+
+System.Base.SMTPServerNameList=localhost
+System.Base.Data.BaseCurrency=EUR
+System.Base.Data.ReportingCurrency=EUR
+
+// the following 4 are not set
+System.Debug.SMTPAddressRedirect="ariba@<%= @ARIBA_HOST %>"
+System.Inspector.DebugPassword='debug'
+System.Inspector.ReadOnlyPassword="readonly"
+System.Inspector.AdminPassword="admin"
+
+System.NodeManagers.Cluster.JGroups.UDP.mcast_addr=228.0.0.7
+System.NodeManagers.Cluster.JGroups.UDP.mcast_port=6993
+System.DatabaseSchemas.Transaction.Schema1.AribaDBType=oracle
+System.DatabaseSchemas.Transaction.Schema1.AribaDBJDBCDriverType=OracleType4
+System.DatabaseSchemas.Transaction.Schema1.AribaDBCharset=UTF8
+System.DatabaseSchemas.Transaction.Schema1.AribaDBPort=1521
+System.DatabaseSchemas.Transaction.Schema1.AribaDBHostname=<%= @ARIBA_DB_IP %>
+System.DatabaseSchemas.Transaction.Schema1.AribaDBServer=aribadb
+System.DatabaseSchemas.Transaction.Schema1.AribaDBUsername=sourcing
+System.DatabaseSchemas.Transaction.Schema1.AribaDBPassword=sourcing
+System.DatabaseSchemas.Star.Dedicated.Schema1.AribaDBType=oracle
+System.DatabaseSchemas.Star.Dedicated.Schema1.AribaDBJDBCDriverType=OracleType4
+System.DatabaseSchemas.Star.Dedicated.Schema1.AribaDBCharset=UTF8
+System.DatabaseSchemas.Star.Dedicated.Schema1.AribaDBPort=1521
+System.DatabaseSchemas.Star.Dedicated.Schema1.AribaDBHostname=<%= @ARIBA_DB_IP %>
+System.DatabaseSchemas.Star.Dedicated.Schema1.AribaDBServer=aribadb
+System.DatabaseSchemas.Star.Dedicated.Schema1.AribaDBUsername=sourcings1
+System.DatabaseSchemas.Star.Dedicated.Schema1.AribaDBPassword=sourcings1
+System.DatabaseSchemas.Star.Dedicated.Schema2.AribaDBType=oracle
+System.DatabaseSchemas.Star.Dedicated.Schema2.AribaDBJDBCDriverType=OracleType4
+System.DatabaseSchemas.Star.Dedicated.Schema2.AribaDBCharset=UTF8
+System.DatabaseSchemas.Star.Dedicated.Schema2.AribaDBPort=1521
+System.DatabaseSchemas.Star.Dedicated.Schema2.AribaDBHostname=<%= @ARIBA_DB_IP %>
+System.DatabaseSchemas.Star.Dedicated.Schema2.AribaDBServer=aribadb
+System.DatabaseSchemas.Star.Dedicated.Schema2.AribaDBUsername=sourcings2
+System.DatabaseSchemas.Star.Dedicated.Schema2.AribaDBPassword=sourcings2
+

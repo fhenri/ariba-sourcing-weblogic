@@ -1,0 +1,6 @@
+.vagrant
+puppet/install_ariba/jrebel
+puppet/modules/oracle/files/database/
+puppet/modules/oracle/files/examples
+puppet/install_ariba/Upstream-9r2
+puppet/install_ariba/Weblogic

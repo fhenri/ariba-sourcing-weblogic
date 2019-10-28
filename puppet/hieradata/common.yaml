@@ -1,0 +1,10 @@
+---
+host_db_address:  "192.168.80.51"
+host_app_address: "192.168.80.52"
+
+db_hostname:      "ariba.db"
+
+ariba_user:       "ariba"
+ariba_hostname:   "sourcing.local"
+ariba_version:    "9r2"
+ariba_sp:         "sourcing_9.2_sp9.jar"

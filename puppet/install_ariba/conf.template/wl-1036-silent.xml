@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- see https://docs.oracle.com/cd/E23943_01/doc.1111/e14142/silent.htm#WLSIG134 -->
+<bea-installer>
+    <input-fields>
+	<data-value name="BEAHOME" value="/home/ariba/bea" />
+	<data-value name="WLS_INSTALL_DIR" value="/home/ariba/bea/wlserver" />
+	<data-value name="OCP_INSTALL_DIR" value="/home/ariba/bea/coherence" />
+	<data-value name="COMPONENT_PATHS" value="WebLogic Server/Core Application Server|WebLogic Server/Administration Console|WebLogic Server/Configuration Wizard and Upgrade Framework|WebLogic Server/Web 2.0 HTTP Pub-Sub Server|WebLogic Server/WebLogic JDBC Drivers|WebLogic Server/Third Party JDBC Drivers" />
+	<!--
+	<data-value name="COMPONENT_PATHS" value="WebLogic Server/Core Application Server|WebLogic Server/Administration Console|WebLogic Server/Configuration Wizard and Upgrade Framework|WebLogic Server/Web 2.0 HTTP Pub-Sub Server|WebLogic Server/WebLogic JDBC Drivers|WebLogic Server/Third Party JDBC Drivers|WebLogic Server/WebLogic Server Clients|WebLogic Server/WebLogic Web Server Plugins|WebLogic Server/UDDI and Xquery Support|WebLogic Server/Server Examples|Oracle Coherence/Coherence Product Files" />
+	-->
+	<data-value name="LOCAL_JVMS" value="/usr/lib/jvm/java"/>
+	<data-value name="NODEMGR_PORT" value="6999" />
+	<!--
+	<data-value name="OCM_PROXY_HOST" value="" />
+	<data-value name="OCM_PROXY_PORT" value="" />
+	<data-value name="OCM_PROXY_USER" value="" />
+	<data-value name="OCM_PROXY_PASSWORD" value="" />
+	<data-value name="OCM_SUPPORT_EMAIL" value="" />
+	<data-value name="OCM_SUPPORT_PASSWORD" value="" />
+	-->
+	<!-- windows only
+	<data-value name="INSTALL_NODE_MANAGER_SERVICE" value="yes" />
+	<data-value name="INSTALL_SHORTCUT_IN_ALL_USERS_FOLDER" value="yes"/>
+	-->
+    </input-fields>
+</bea-installer>

@@ -1,0 +1,10 @@
+load paramstable config\Parameters.table
+
+removeFromVector paramstable System.Base.SecureParameters value ("System.Inspector.AdminPassword")
+removeFromVector paramstable System.Base.SecureParameters value ("System.Inspector.DebugPassword")
+removeFromVector paramstable System.Base.SecureParameters value ("System.Inspector.ReadOnlyPassword")
+
+load mergetable config\ParametersFix.table.merge
+merge paramstable "" table mergetable ""
+
+save paramstable config\Parameters.table
